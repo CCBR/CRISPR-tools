@@ -1,0 +1,7 @@
+#Library sequence frequency counter from csv. Produces counts of each sequence in sequenceFrequency.txt and 
+#frequency of each count value in seqFrequencyCount.txt
+cut -f 2 -d ',' <fileId>.csv | sort | uniq -c | sed -e 's/^[ \t]*//' |sed 's/\s/\t/g' > sequenceFrequency.txt
+cut -f 1  sequenceFrequency.txt | sort -g | uniq -c | sed 's/^[ \t]*//' |sed 's/\s/\t/g'> seqFrequencyCount.txt
+
+#Add NGG PAM to fasta sequences
+awk '{if (NR % 2 == 0) print $0"NGG"; else print $0}' <gRNA_file>.fa > sgRNA_withPAM.fa
