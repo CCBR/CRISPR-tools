@@ -31,7 +31,7 @@ with open ('{}'.format(fastaIn), 'r') as fastaIn:
 				# print (identifier)
 			else:
 				identifier = line[1:].strip("\n")
-				identifier = regex.sub("\|"," ",identifier)
+				identifier = regex.sub("\|","..",identifier)
 
 		else:
 			sequence += line.strip("\n")

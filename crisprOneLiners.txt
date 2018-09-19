@@ -5,3 +5,10 @@ cut -f 1  sequenceFrequency.txt | sort -g | uniq -c | sed 's/^[ \t]*//' |sed 's/
 
 #Add NGG PAM to fasta sequences
 awk '{if (NR % 2 == 0) print $0"NGG"; else print $0}' <gRNA_file>.fa > sgRNA_withPAM.fa
+
+#BLAT command for alignment to library
+blat -minScore=0 -stepSize=1 <template/reference>.fa <readfile>.fasta outfile.psl
+
+#parse blat outputs into 5 column, including the local start site
+cat <(echo -e "sgRNA\ttranscript\tmatchLen\tstart\tend") <(tail -n +6 <blatResult>.psl |awk '{if ($1 ==20) print $14"\t"$10"\t"$1"\t"
+$12"\t"$13}') > <output>.txt
